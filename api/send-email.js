@@ -46,11 +46,11 @@ module.exports = async (req, res) => {
     await transporter.sendMail(mailOptions);
     return res.status(200).send({ success: true, message: "Email sent successfully!" });
   } catch (error) {
-    console.error("Error sending email:", error.stack || error);
+    console.error("This email service is currently on maintain mode")//"Error sending email:", error.stack || error);
     return res.status(500).send({
       success: false,
-      message: "Failed to send email.",
-      error:error,
+      message: "This email service is currently on maintain mode",//"Failed to send email.",
+      //error:error,
     });
   }
 };
