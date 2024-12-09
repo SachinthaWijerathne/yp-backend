@@ -2,12 +2,12 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.office365.com",
+  host: "smtp-mail.outlook.com",
   port: 587,
   secure: false,
   auth: {
-    user: "yarlprops@outlook.com",//process.env.OUTLOOK_EMAIL,
-    pass: "P5p@2024",//process.env.OUTLOOK_PASSWORD,
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
   },
 });
 
@@ -17,6 +17,9 @@ module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  console.log(process.env.EMAIL)
+  console.log(process.env.PASSWORD)
 
   if (req.method === "OPTIONS") {
     return res.status(204).end();
@@ -33,7 +36,7 @@ module.exports = async (req, res) => {
   }
 
   const mailOptions = {
-    from: process.env.OUTLOOK_EMAIL,
+    from: process.env.EMAIL,
     to,
     subject,
     text,
