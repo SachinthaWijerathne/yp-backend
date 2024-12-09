@@ -47,6 +47,7 @@ module.exports = async (req, res) => {
     return res.status(500).send({
       success: false,
       message: "Failed to send email.",
+      error:error,
     });
   }
 };
