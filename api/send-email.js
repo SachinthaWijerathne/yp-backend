@@ -2,9 +2,7 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp-mail.outlook.com",
-  port: 587,
-  secure: false,
+  service:'gamil',
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
@@ -50,7 +48,7 @@ module.exports = async (req, res) => {
     return res.status(500).send({
       success: false,
       message: "This email service is currently on maintain mode",//"Failed to send email.",
-      //error:error,
+      error:error,
     });
   }
 };
