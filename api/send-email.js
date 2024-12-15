@@ -42,6 +42,9 @@ module.exports = async (req, res) => {
     await transporter.sendMail(mailOptions);
     return res.status(200).send({ success: true, message: "Email sent successfully!" });
   } catch (error) {
+    if (error.responseCode === 550 || error.responseCode === 554) {
+      return res.status(400).send({ success: false, message: "Invalid recipient email address." });
+    }
     return res.status(500).send({
       success: false,
       message: "Failed to send email, Try again later",
