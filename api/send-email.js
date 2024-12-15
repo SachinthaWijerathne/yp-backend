@@ -2,7 +2,7 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  service:'gamil',
+  service:'gmail',
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
@@ -15,9 +15,6 @@ module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  console.log(process.env.EMAIL)
-  console.log(process.env.PASSWORD)
 
   if (req.method === "OPTIONS") {
     return res.status(204).end();
@@ -44,10 +41,9 @@ module.exports = async (req, res) => {
     await transporter.sendMail(mailOptions);
     return res.status(200).send({ success: true, message: "Email sent successfully!" });
   } catch (error) {
-    console.error("This email service is currently on maintain mode")//"Error sending email:", error.stack || error);
     return res.status(500).send({
       success: false,
-      message: "This email service is currently on maintain mode",//"Failed to send email.",
+      message: "Failed to send email, Try again later",
       error:error,
     });
   }
